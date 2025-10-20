@@ -1,9 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ECommerceModule } from './e-commerce/e-commerce';
+import { RequestLoggingMiddleware } from './shared/middleware/request-logging.middleware';
+import { RootModule } from './root.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(ECommerceModule);
+  const app = await NestFactory.create(RootModule);
+
+  const requestLoggingMiddleware = new RequestLoggingMiddleware();
+  app.use(requestLoggingMiddleware.use.bind(requestLoggingMiddleware));
 
   const config = new DocumentBuilder()
     .setTitle('E-Commerce 商品API')

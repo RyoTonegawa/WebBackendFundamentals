@@ -1,0 +1,1 @@
+export const PRODUCT_ID_NOT_FOUND = "Product id not found"
